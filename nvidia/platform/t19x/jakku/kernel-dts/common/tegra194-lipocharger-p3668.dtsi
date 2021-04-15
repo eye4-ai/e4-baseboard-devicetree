@@ -1,0 +1,60 @@
+/*
+ * Copyright (c) 2021, EYE4 SA.  All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 2 of the License.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ *
+ * alexis 
+ * sources from https://www.raspberrypi.org/forums/viewtopic.php?t=256075
+ * https://forums.developer.nvidia.com/t/how-to-confirm-the-i2c-addr/158246
+
+
+ Optional properties :
+ - interrupts : Specify the interrupt to be used to trigger when the AC
+   adapter is either plugged in or removed.
+ - ti,ac-detect-gpios : This GPIO is optionally used to read the AC adapter
+   status. This is a Host GPIO that is configured as an input and connected
+   to the ACOK pin on the bq24735. Note: for backwards compatibility reasons,
+   the GPIO must be active on AC adapter absence despite ACOK being active
+   (high) on AC adapter presence.
+ - ti,charge-current : Used to control and set the charging current. This value
+   must be between 128mA and 8.128A with a 64mA step resolution. The POR value
+   is 0x0000h. This number is in mA (e.g. 8192), see spec for more information
+   about the ChargeCurrent (0x14h) register.
+ - ti,charge-voltage : Used to control and set the charging voltage. This value
+   must be between 1.024V and 19.2V with a 16mV step resolution. The POR value
+   is 0x0000h. This number is in mV (e.g. 19200), see spec for more information
+   about the ChargeVoltage (0x15h) register.
+ - ti,input-current : Used to control and set the charger input current. This
+   value must be between 128mA and 8.064A with a 128mA step resolution. The
+   POR value is 0x1000h. This number is in mA (e.g. 8064), see the spec for
+   more information about the InputCurrent (0x3fh) register.
+ - ti,external-control : Indicates that the charger is configured externally
+   and that the host should not attempt to enable/disable charging or set the
+   charge voltage/current.
+ - poll-interval : In case 'interrupts' is not specified, poll AC adapter
+   presence with this interval (milliseconds).
+
+ */
+
+ / {
+	i2c@c240000 {
+		bq24735_charger_9: bq24735_charger@9 {
+      status = "okay";
+			compatible = "ti,bq24735";
+			reg = <0x9>;
+            
+      ti,charge-current = <3200>;
+      ti,input-current = <4736>;
+      ti,charge-voltage = <16800>;
+      //ti,ac-detect-gpios =  <&tegra_main_gpio TEGRA194_MAIN_GPIO(C, 3) GPIO_ACTIVE_LOW>;
+
+		};
+	};
+};

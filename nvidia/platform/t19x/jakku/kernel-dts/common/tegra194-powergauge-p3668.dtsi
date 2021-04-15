@@ -1,0 +1,54 @@
+/*
+ * Copyright (c) 2021, EYE4 SA.  All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 2 of the License.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ *
+ * alexis 
+ * sources from https://www.raspberrypi.org/forums/viewtopic.php?t=256075
+ * https://forums.developer.nvidia.com/t/how-to-confirm-the-i2c-addr/158246
+ */
+
+/*
+ * 
+ * 
+ * 
+ */
+
+/ {
+	i2c@c240000 {
+		MAX1726x: max1726x_battery@36 {
+			status = "okay";
+			reg = <0x36>;
+			compatible = "maxim,MAX1726x";
+			
+			rsense          = <10>;     /* miliOhm */
+			model-option    = <1>;      /* Model 1, 2 or 3*/
+	
+			clock-frequency = <400000>;
+			
+			talrt-min   = <0>;          /* DegreeC */
+			talrt-max   = <50>;         /* DegreeC */
+			valrt-min   = <12000>;      /* mV */
+			valrt-max   = <17000>;      /* mV */
+			salrt-min   = <20>;         /* Percent */
+			salrt-max   = <99>;         /* Percent */
+			ialrt-min   = <(-5000)>;    /* mA */
+			ialrt-max   = <5000>;       /* mA */
+	
+			/*** INI parameters ***/
+	
+			/* Option 1/2/3 */
+			designcap   = /bits/ 16 <0x0BB8>; /* 1500 mAh */
+			ichgterm    = /bits/ 16 <0x0640>;
+			vempty      = /bits/ 16 <0xA561>; /* 3300 mV */
+			vcharge     = <4300>; /* mV */
+		};
+	};
+};
