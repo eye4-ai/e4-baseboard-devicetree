@@ -15,40 +15,41 @@
  * https://forums.developer.nvidia.com/t/how-to-confirm-the-i2c-addr/158246
  */
 
-/*
- * 
- * 
- * 
- */
-
 / {
 	i2c@c240000 {
 		MAX1726x: max1726x_battery@36 {
 			status = "okay";
 			reg = <0x36>;
 			compatible = "maxim,MAX1726x";
-			
+
 			rsense          = <10>;     /* miliOhm */
 			model-option    = <1>;      /* Model 1, 2 or 3*/
-	
-			clock-frequency = <400000>;
-			
-			talrt-min   = <0>;          /* DegreeC */
-			talrt-max   = <50>;         /* DegreeC */
-			valrt-min   = <12000>;      /* mV */
-			valrt-max   = <17000>;      /* mV */
-			salrt-min   = <20>;         /* Percent */
-			salrt-max   = <99>;         /* Percent */
-			ialrt-min   = <(-5000)>;    /* mA */
-			ialrt-max   = <5000>;       /* mA */
+
+			// Alert pin is not connected to SOM, so no interrupt config needed
+			// interrupt-parent    = <>;
+        	// interrupts          = <>;
+
+			// No interrupts, so don't need to set any of these alerts
+			// talrt-min   = <0>;          /* DegreeC */
+			// talrt-max   = <50>;         /* DegreeC */
+			// valrt-min   = <3000>;       /* mV */
+			// valrt-max   = <4300>;       /* mV */
+			// salrt-min   = <20>;         /* Percent */
+			// salrt-max   = <99>;         /* Percent */
+			// ialrt-min   = <(-5000)>;    /* mA */
+			// ialrt-max   = <5000>;       /* mA */
 	
 			/*** INI parameters ***/
-	
+			// Note: Capcity & current LSB equivalences are based on a 10mR sense resistor
+
 			/* Option 1/2/3 */
-			designcap   = /bits/ 16 <0x0BB8>; /* 1500 mAh */
-			ichgterm    = /bits/ 16 <0x0640>;
-			vempty      = /bits/ 16 <0xA561>; /* 3300 mV */
-			vcharge     = <4300>; /* mV */
+			designcap   = /bits/ 16 <4400>; // The nominal capacity of the cell in mAh. LSB = 0.5mAh, so effectively double the capacity. 2200 mAh
+			ichgterm    = /bits/ 16 <410>; // The charge termination current, used to detect when charge cycle has completed. LSB = 156.25uA. 64mA
+			// This register contains two values: VE (bits 15:7) & VR (bits 6:0)
+			// VE: empty cell voltage. LSB = 10mV. 3300mV
+			// VR: voltage level for clearing empty detection. LSB = 40mV. 3880mV
+			vempty      = /bits/ 16 <0xA561>; 
+			vcharge     = <4200>; // The charged voltage per cell, in mV
 		};
 	};
 };

@@ -23,6 +23,7 @@
 #include "tegra194-powermon-p3668.dtsi"
 #include "tegra194-powergauge-p3668.dtsi" //alexis
 #include "tegra194-lipocharger-p3668.dtsi" //alexis
+#include "tegra194-userled-p3668.dtsi" //edd
 #include "tegra194-power-tree-p3668.dtsi"
 #include "tegra194-thermal-p3668.dtsi"
 #include <t19x-common-platforms/tegra194-no-pll-aon-clock.dtsi>

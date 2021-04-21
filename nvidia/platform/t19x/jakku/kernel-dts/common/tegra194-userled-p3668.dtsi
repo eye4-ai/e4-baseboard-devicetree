@@ -1,0 +1,72 @@
+/*
+ * Copyright (c) 2021, EYE4 SA.  All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 2 of the License.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ *
+ * edd
+ * source from https://android.googlesource.com/kernel/msm/+/android-7.1.0_r0.2/Documentation/devicetree/bindings/leds/leds-lp55xx.txt
+
+ Binding for TI/National Semiconductor LP55xx Led Drivers
+Required properties:
+- compatible: one of
+	national,lp5521
+	national,lp5523
+	ti,lp55231
+	ti,lp5562
+	ti,lp8501
+- reg: I2C slave address
+- clock-mode: Input clock mode, (0: automode, 1: internal, 2: external)
+Each child has own specific current settings
+- led-cur: Current setting at each led channel (mA x10, 0 if led is not connected)
+- max-cur: Maximun current at each led channel.
+Optional properties:
+- enable-gpio: GPIO attached to the chip's enable pin
+- label: Used for naming LEDs
+- pwr-sel: LP8501 specific property. Power selection for output channels.
+         0: D1~9 are connected to VDD
+         1: D1~6 with VDD, D7~9 with VOUT
+         2: D1~6 with VOUT, D7~9 with VDD
+         3: D1~9 are connected to VOUT
+Alternatively, each child can have a specific channel name and trigger:
+- chan-name (optional): name of channel
+- linux,default-trigger (optional): see
+  Documentation/devicetree/bindings/leds/common.txt
+
+ */
+
+/ {
+	i2c@c240000 {
+		LP55xx: lp5562_led@30 {
+			compatible = "ti,lp5562";
+			reg = <0x30>;
+      clock-mode = /bits/8 <1>;
+      chan0 {
+        chan-name = "R";
+        led-cur = /bits/ 8 <0x20>;
+        max-cur = /bits/ 8 <0x60>;
+      };
+      chan1 {
+        chan-name = "G";
+        led-cur = /bits/ 8 <0x20>;
+        max-cur = /bits/ 8 <0x60>;
+      };
+      chan2 {
+        chan-name = "B";
+        led-cur = /bits/ 8 <0x20>;
+        max-cur = /bits/ 8 <0x60>;
+      };
+      chan3 {
+        chan-name = "W";
+        led-cur = /bits/ 8 <0x20>;
+        max-cur = /bits/ 8 <0x60>;
+      };
+		};
+	};
+};
