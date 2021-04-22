@@ -432,40 +432,60 @@
 
 	spi@3210000{ /* SPI1 in 40 pin conn */
 		status = "okay";
-		spi@0 { /* chip select 0 */
-			compatible = "spidev";
-			reg = <0x0>;
-			spi-max-frequency = <50000000>;
-			controller-data {
-				nvidia,enable-hw-based-cs;
-				nvidia,rx-clk-tap-delay = <0x10>;
-				nvidia,tx-clk-tap-delay = <0x0>;
-			};
+		// Alexis --- was previously like this
+		// Maybe be good to look the original file in master branch
+		// I disabled the spi@1, changed stuff so not sure this is still ok :)
+		//
+		// spi@0 { /* chip select 0 */
+		// 	compatible = "spidev";
+		// 	reg = <0x0>;
+		// 	spi-max-frequency = <50000000>;
+		// 	controller-data {
+		// 		nvidia,enable-hw-based-cs;
+		// 		nvidia,rx-clk-tap-delay = <0x10>;
+		// 		nvidia,tx-clk-tap-delay = <0x0>;
+		// 	};
+		//};
 
-			//alexis wf200
-			wfx {
-				status = "okay";
-				compatible = "silabs,wfx-spi";
-				reg = <0>;
-				pinctrl-names = "default";
-				spi-max-frequency = <42000000>; // necessary for dtparam
-				config-file = "wf200.pds"; // necessary for dtparam
-				interrupts-extended = <&tegra_main_gpio TEGRA194_MAIN_GPIO(Z, 6) IRQ_TYPE_EDGE_RISING>; //SPI0CS0
-				wakeup-gpios = <&tegra_main_gpio TEGRA194_MAIN_GPIO(C, 0) 0>; //GPIO03
-				reset-gpios =  <&tegra_main_gpio TEGRA194_MAIN_GPIO(Q, 3) 0>; //GPIO02
-			};
-			//--end-of-wf200--
-		};
-		spi@1 { /* chip select 1 */
-			compatible = "spidev";
-			reg = <0x1>;
-			spi-max-frequency = <50000000>;
+		spi@0 {
+			status = "okay";
+			spi-max-frequency = <50000000>; // necessary for dtparam
+			reg = <0>;
+			compatible = "silabs,wf200", "siliconlabs,wfx-wlan-spi", "linux,spidev";
+			
+			interrupts-extended = <&tegra_main_gpio TEGRA194_MAIN_GPIO(C, 0) IRQ_TYPE_EDGE_RISING>; //GPIO03
+			reset-gpios =  <&tegra_main_gpio TEGRA194_MAIN_GPIO(Q, 3) GPIO_ACTIVE_LOW>;
+
 			controller-data {
 				nvidia,enable-hw-based-cs;
-				nvidia,rx-clk-tap-delay = <0x10>;
-				nvidia,tx-clk-tap-delay = <0x0>;
+				nvidia,rx-clk-tap-delay = <0x1f>;
+				nvidia,tx-clk-tap-delay = <0x00>;
 			};
+			
+			// #address-cells = <1>;
+			// #size-cells = <0>;
+			
+			//pinctrl-names = "default";
+			//pinctrl-0 = <&wfx_irq>;
+			//pinctrl-0 = <&spmic_wf200>;
+			
 		};
+	//
+	// 	spi@1 { /* chip select 1 */
+	// 	// 	status = "okay";
+	// 	// 	spi-max-frequency = <42000000>; // necessary for dtparam
+	// 	// 	reg = <0>;
+	// 	// 	compatible = "silabs,wf200", "silabs,wfx-spi", "siliconlabs,wfx-wlan-spi", "linux,spidev";
+			
+	// 	// 	controller-data {
+	// 	// 		nvidia,cs-setup-clk-count = <0x1e>;
+	// 	// 		nvidia,cs-hold-clk-count = <0x1e>;
+	// 	// 		nvidia,rx-clk-tap-delay = <0x1f>;
+	// 	// 		nvidia,tx-clk-tap-delay = <0x00>;
+	// 	// 	};
+	// 	// };
+	// };
+
 	};
 
 	spi@3230000{ /* SPI3 in 40 pin conn */
