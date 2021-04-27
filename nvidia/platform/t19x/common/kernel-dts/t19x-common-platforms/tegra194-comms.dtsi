@@ -16,61 +16,10 @@
  *
  */
 
-
-//#define WF200_WIRQ	TEGRA194_MAIN_GPIO(C, 0)
-//#define WF200_RST	TEGRA194_MAIN_GPIO(Q, 3)
-
 #include <dt-bindings/gpio/tegra194-gpio.h>
 
 / {
 	/* Need to enable wifi_en pin during boot for PCIe enumeration */
 	gpio@2200000 {
-
-		// gpio_default: default {
-		// 	gpio-hog;
-		// 	function;
-		// 	gpios = <TEGRA194_MAIN_GPIO(C, 0) 0 TEGRA194_MAIN_GPIO(C, 1) 0 TEGRA194_MAIN_GPIO(C, 2) 0 TEGRA194_MAIN_GPIO(C, 3) TEGRA194_MAIN_GPIO(C,4) 0>;
-		// };
-
-	
-		
-		// wf200-reset {
-        //     gpio-hog;
-        //     input-high;
-        //     gpios = <TEGRA194_MAIN_GPIO(Q, 3) 0>;
-        //     label = "wf200_reset";
-        // };
-
-		// wifi-enable {
-		// 	gpio-hog;
-		// 	output-high;
-		// 	gpios = <TEGRA194_MAIN_GPIO(G, 3) 0>;
-		// 	label = "wifi-enable";
-		// 	status = "okay";
-		// };
-
-		// wfx-spi-out-low {
-		// 	gpio-hog;
-		// 	output-low;
-		// 	gpios= <WF200_WIRQ IRQ_TYPE_EDGE_RISING>;
-		// 	status = "okay";
-		// 	label = "wfx-spi";
-		// };
-
-		// wfx-spi-in-low {
-		// 	gpio-hog;
-		// 	input-low;
-		// 	gpios= <WF200_RST 0>;
-		// 	status = "okay";
-		// 	label = "wfx-spi";
-		// };
 	};
-
-	// bcmdhd_pcie_wlan {
-	// 	compatible = "android,bcmdhd_pcie_wlan";
-	// 	wlan-pwr-gpio = <&tegra_main_gpio TEGRA194_MAIN_GPIO(G, 3) 0>;
-	// 	fw_path = "/vendor/firmware/fw_bcmdhd_4356.bin";
-	// 	nv_path = "/vendor/firmware/nvram_4356.txt";
-	// 	status = "okay";
-	// };
 };

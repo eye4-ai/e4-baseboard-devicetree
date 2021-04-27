@@ -279,17 +279,6 @@
 		status = "okay";
 	};
 	
-	// sdhci_sd: sdhci@3400000 {
-	// 	mmc-ocr-mask = <0x0>;
-	// 	cd-inverted;
-	// 	cd-gpios = <&tegra_main_gpio TEGRA194_MAIN_GPIO(Q, 2) 0>; //alexis was G,7 now Q,2
-	// 	nvidia,cd-wakeup-capable;
-	// 	mmc-ocr-mask = <0>;
-	// 	cd-inverted;
-	// 	vmmc-supply = <&p3668_vdd_sdmmc1_sw>;
-	// 	status = "okay";
-	// };
-
 	mipical@3990000 {
 		status = "okay";
 	};
@@ -447,22 +436,6 @@
 				nvidia,tx-clk-tap-delay = <0x00>;
 			};			
 		};
-	//
-	// 	spi@1 { /* chip select 1 */
-	// 	// 	status = "okay";
-	// 	// 	spi-max-frequency = <42000000>; // necessary for dtparam
-	// 	// 	reg = <0>;
-	// 	// 	compatible = "silabs,wf200", "silabs,wfx-spi", "siliconlabs,wfx-wlan-spi", "linux,spidev";
-			
-	// 	// 	controller-data {
-	// 	// 		nvidia,cs-setup-clk-count = <0x1e>;
-	// 	// 		nvidia,cs-hold-clk-count = <0x1e>;
-	// 	// 		nvidia,rx-clk-tap-delay = <0x1f>;
-	// 	// 		nvidia,tx-clk-tap-delay = <0x00>;
-	// 	// 	};
-	// 	// };
-	// };
-
 	};
 
 
