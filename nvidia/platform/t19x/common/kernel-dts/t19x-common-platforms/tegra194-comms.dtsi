@@ -15,25 +15,11 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  */
+
 #include <dt-bindings/gpio/tegra194-gpio.h>
 
 / {
 	/* Need to enable wifi_en pin during boot for PCIe enumeration */
 	gpio@2200000 {
-		wifi-enable {
-			gpio-hog;
-			output-high;
-			gpios = <TEGRA194_MAIN_GPIO(G, 3) 0>;
-			label = "wifi-enable";
-			status = "okay";
-		};
-	};
-
-	bcmdhd_pcie_wlan {
-		compatible = "android,bcmdhd_pcie_wlan";
-		wlan-pwr-gpio = <&tegra_main_gpio TEGRA194_MAIN_GPIO(G, 3) 0>;
-		fw_path = "/vendor/firmware/fw_bcmdhd_4356.bin";
-		nv_path = "/vendor/firmware/nvram_4356.txt";
-		status = "okay";
 	};
 };

@@ -23,6 +23,7 @@
 #include "tegra194-powermon-p3668.dtsi"
 #include "tegra194-powergauge-p3668.dtsi" //alexis
 #include "tegra194-lipocharger-p3668.dtsi" //alexis
+#include "tegra194-userled-p3668.dtsi" //edd
 #include "tegra194-power-tree-p3668.dtsi"
 #include "tegra194-thermal-p3668.dtsi"
 #include <t19x-common-platforms/tegra194-no-pll-aon-clock.dtsi>
@@ -278,17 +279,6 @@
 		status = "okay";
 	};
 	
-	// sdhci_sd: sdhci@3400000 {
-	// 	mmc-ocr-mask = <0x0>;
-	// 	cd-inverted;
-	// 	cd-gpios = <&tegra_main_gpio TEGRA194_MAIN_GPIO(Q, 2) 0>; //alexis was G,7 now Q,2
-	// 	nvidia,cd-wakeup-capable;
-	// 	mmc-ocr-mask = <0>;
-	// 	cd-inverted;
-	// 	vmmc-supply = <&p3668_vdd_sdmmc1_sw>;
-	// 	status = "okay";
-	// };
-
 	mipical@3990000 {
 		status = "okay";
 	};
@@ -428,44 +418,26 @@
 		compatible = "nvidia,tegra194-dpaux3-pinctrl";
 		status = "okay";
 	};
-
+	
 	spi@3210000{ /* SPI1 in 40 pin conn */
 		status = "okay";
-		spi@0 { /* chip select 0 */
-			compatible = "spidev";
-			reg = <0x0>;
-			spi-max-frequency = <50000000>;
-			controller-data {
-				nvidia,enable-hw-based-cs;
-				nvidia,rx-clk-tap-delay = <0x10>;
-				nvidia,tx-clk-tap-delay = <0x0>;
-			};
+		spi@0 {
+			status = "okay";
+			spi-max-frequency = <50000000>; // necessary for dtparam
+			reg = <0>;
+			compatible = "silabs,wf200", "siliconlabs,wfx-wlan-spi";
 
-			//alexis wf200
-			wfx {
-				status = "okay";
-				compatible = "silabs,wfx-spi";
-				reg = <0>;
-				pinctrl-names = "default";
-				spi-max-frequency = <42000000>; // necessary for dtparam
-				config-file = "wf200.pds"; // necessary for dtparam
-				interrupts-extended = <&tegra_main_gpio TEGRA194_MAIN_GPIO(Z, 6) IRQ_TYPE_EDGE_RISING>; //SPI0CS0
-				wakeup-gpios = <&tegra_main_gpio TEGRA194_MAIN_GPIO(C, 0) 0>; //GPIO03
-				reset-gpios =  <&tegra_main_gpio TEGRA194_MAIN_GPIO(Q, 3) 0>; //GPIO02
-			};
-			//--end-of-wf200--
-		};
-		spi@1 { /* chip select 1 */
-			compatible = "spidev";
-			reg = <0x1>;
-			spi-max-frequency = <50000000>;
+			interrupts-extended = <&tegra_aon_gpio TEGRA194_AON_GPIO(CC, 0) IRQ_TYPE_EDGE_RISING>; //GPIO03
+			reset-gpios =  <&tegra_main_gpio TEGRA194_MAIN_GPIO(Q, 3) GPIO_ACTIVE_LOW>; //GPIO02
+
 			controller-data {
 				nvidia,enable-hw-based-cs;
-				nvidia,rx-clk-tap-delay = <0x10>;
-				nvidia,tx-clk-tap-delay = <0x0>;
-			};
+				nvidia,rx-clk-tap-delay = <0x1f>;
+				nvidia,tx-clk-tap-delay = <0x00>;
+			};			
 		};
 	};
+
 
 	spi@3230000{ /* SPI3 in 40 pin conn */
 		status = "okay";
