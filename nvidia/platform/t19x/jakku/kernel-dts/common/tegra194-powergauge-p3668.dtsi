@@ -43,7 +43,7 @@
 			// Note: Capcity & current LSB equivalences are based on a 10mR sense resistor
 
 			/* Option 1/2/3 */
-			designcap   = /bits/ 16 <6600>; // The nominal capacity of the cell in mAh. LSB = 0.5mAh, so effectively double the capacity. 2200 mAh
+			designcap   = /bits/ 16 <13200>; // The nominal capacity of the cell in mAh. LSB = 0.5mAh, so effectively double the capacity. 2200 mAh
 			ichgterm    = /bits/ 16 <410>; // The charge termination current, used to detect when charge cycle has completed. LSB = 156.25uA. 64mA
 			// This register contains two values: VE (bits 15:7) & VR (bits 6:0)
 			// VE: empty cell voltage. LSB = 10mV. 3300mV
