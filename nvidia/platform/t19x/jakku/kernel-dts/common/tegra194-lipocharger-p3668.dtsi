@@ -50,9 +50,9 @@
 			compatible = "ti,bq24735";
 			reg = <0x9>;
             
-      ti,charge-current = <2944>;  // Charge current in mA, must be a multiple of 64. 5A max due to ILIM pin
-      ti,charge-voltage = <12608>;  // Charge voltage in mV, must be a multiple of 16. 12608 for 3S, 16800 for 4S
-      ti,input-current = <2944>;  // Input current (max from AC wall adapter) in mA, must be a multiple of 128
+      ti,charge-current = <1536>;  // Charge current in mA, must be a multiple of 64. 5A max due to ILIM pin
+      ti,charge-voltage = <16800>;  // Charge voltage in mV, must be a multiple of 16. 12608 for 3S, 16800 for 4S
+      ti,input-current = <1536>;  // Input current (max from AC wall adapter) in mA, must be a multiple of 128
 
       interrupt-parent = <&tegra_aon_gpio>;
       interrupts = <TEGRA194_AON_GPIO(CC, 3) IRQ_TYPE_EDGE_BOTH>;
