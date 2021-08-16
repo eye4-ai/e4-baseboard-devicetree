@@ -477,14 +477,14 @@
 		};
 	};
 
-	leds {
-		compatible = "gpio-leds";
-		status = "okay";
-		pwr {
-			gpios = <&tegra_aon_gpio TEGRA194_AON_GPIO(CC, 1) GPIO_ACTIVE_HIGH>;
-			default-state = "on";
-		};
-	};
+	//leds {
+	//	compatible = "gpio-leds";
+	//	status = "okay";
+	//	pwr {
+	//		gpios = <&tegra_aon_gpio TEGRA194_AON_GPIO(CC, 1) GPIO_ACTIVE_HIGH>;
+	//		default-state = "on";
+	//	};
+	//};
 
 
 	/* QSPI flash S25FS128SAGNFI103 is controlled by qspi0 */
