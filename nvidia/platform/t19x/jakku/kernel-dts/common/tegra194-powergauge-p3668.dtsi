@@ -46,9 +46,9 @@
 			designcap   = /bits/ 16 <6700>; // The nominal capacity of the cell in mAh. LSB = 0.5mAh, so effectively double the capacity. 2200 mAh
 			ichgterm    = /bits/ 16 <410>; // The charge termination current, used to detect when charge cycle has completed. LSB = 156.25uA. 64mA
 			// This register contains two values: VE (bits 15:7) & VR (bits 6:0)
-			// VE: empty cell voltage. LSB = 10mV. 3300mV
+			// VE: empty cell voltage. LSB = 10mV. 3000mV
 			// VR: voltage level for clearing empty detection. LSB = 40mV. 3880mV
-			vempty      = /bits/ 16 <0xA561>; 
+			vempty      = /bits/ 16 <0x9661>; 
 			vcharge     = <4200>; // The charged voltage per cell, in mV
 		};
 	};
